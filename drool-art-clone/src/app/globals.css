@@ -1,0 +1,313 @@
+/* Import modern fonts that support Serbian Latin characters */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5 {
+    @apply font-bold;
+  }
+
+  /* Serif headings for important titles */
+  h1.serif, h2.serif {
+    font-family: 'Playfair Display', serif;
+    @apply font-bold tracking-tight;
+  }
+
+  /* Sans headings for most content */
+  h1.sans, h2.sans, h3.sans {
+    font-family: 'Montserrat', sans-serif;
+    @apply font-extrabold tracking-tight;
+  }
+}
+
+/* Typography styles */
+.font-serif-heading {
+  font-family: 'Playfair Display', serif;
+  @apply font-bold;
+}
+
+.font-sans-heading {
+  font-family: 'Montserrat', sans-serif;
+  @apply font-extrabold;
+}
+
+.font-body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Poster display */
+.poster-frame {
+  @apply border border-black p-1 bg-white shadow-lg hover:shadow-xl transition-all duration-300;
+}
+
+/* Container classes */
+.container-narrow {
+  @apply max-w-4xl mx-auto px-2 sm:px-4;
+}
+
+.container-wide {
+  @apply max-w-[2000px] mx-auto px-1 sm:px-2 md:px-4 lg:px-6;
+}
+
+/* Button styles */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 border border-transparent 
+    text-base font-medium rounded-md shadow-sm transition duration-150 ease-in-out;
+}
+
+.btn-primary {
+  @apply bg-black text-white hover:bg-gray-800;
+}
+
+.btn-secondary {
+  @apply bg-white text-black border-gray-300 hover:bg-gray-50;
+}
+
+.btn-outline {
+  @apply border border-black bg-transparent text-black hover:bg-black hover:text-white;
+}
+
+.btn-sm {
+  @apply px-4 py-2 text-sm;
+}
+
+.btn-lg {
+  @apply px-8 py-4 text-lg;
+}
+
+/* Link styles */
+.link {
+  @apply transition-colors duration-150 ease-in-out;
+}
+
+.link-primary {
+  @apply text-black hover:underline;
+}
+
+.link-secondary {
+  @apply text-gray-500 hover:text-black;
+}
+
+/* Product grid */
+.product-grid {
+  @apply grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 sm:gap-2 md:gap-4;
+}
+
+/* Product cards */
+.product-card {
+  @apply relative w-full transition-transform duration-300 ease-out;
+}
+
+.product-card-image {
+  @apply relative mb-2 sm:mb-3 overflow-hidden bg-gray-50;
+}
+
+.product-image {
+  @apply w-full h-full object-cover aspect-[3/4] hover:scale-105 transition-transform duration-300;
+}
+
+.product-card-content {
+  @apply px-0.5 sm:px-1;
+}
+
+.product-card-title {
+  @apply font-bold text-sm sm:text-base lg:text-lg mb-0.5 sm:mb-1 hover:underline;
+}
+
+/* Navbar padding for product pages */
+.product-detail-container {
+  @apply pt-32 pb-16;
+}
+
+/* Container styles */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Custom styles */
+.text-yellow-star {
+  color: #FFD700;
+}
+
+/* Link hover animations */
+a.hover-underline {
+  position: relative;
+}
+
+a.hover-underline:after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+a.hover-underline:hover:after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Product card styles */
+.product-badge {
+  @apply absolute top-2 left-2 bg-black text-white text-xs px-2 py-1;
+}
+
+.product-image-container {
+  @apply relative mb-3 overflow-hidden;
+}
+
+.product-image {
+  @apply w-full h-auto object-cover transition-transform duration-300;
+}
+
+/* Rating stars */
+.stars {
+  @apply text-yellow-500;
+}
+
+/* Animation Keyframes */
+@keyframes scaleIn {
+  from {
+    transform: translate(50%, -50%) scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: translate(50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Custom Animation Classes */
+.animate-scaleIn {
+  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out both;
+}
+
+.animate-slideInFromRight {
+  animation: slideInFromRight 0.3s ease-out both;
+}
+
+.animate-slideInFromBottom {
+  animation: slideInFromBottom 0.3s ease-out both;
+}
+
+/* Modern Nav Styles */
+.nav-link {
+  @apply relative text-base font-medium transition-colors duration-300;
+}
+
+.nav-link-indicator {
+  @apply absolute -bottom-1 left-0 h-0.5 bg-black transform transition-all duration-300 ease-out;
+  transform-origin: left;
+}
+
+.nav-link-active .nav-link-indicator {
+  @apply w-full;
+}
+
+.nav-link:hover .nav-link-indicator {
+  @apply w-full;
+}
+
+/* Responsive text adjustments */
+@media (max-width: 640px) {
+  h1 {
+    @apply text-2xl;
+  }
+  
+  h2 {
+    @apply text-xl;
+  }
+  
+  .product-card-content p {
+    @apply text-sm;
+  }
+}
