@@ -1,6 +1,6 @@
-# Drool Art Clone
+# PreludaStvar
 
-A Next.js-based web application for an art prints store.
+Online Prodavnica za Postere. A Next.js-based web application for an art prints store.
 
 ## Technology Stack
 - Next.js App Router
@@ -13,4 +13,4 @@ A Next.js-based web application for an art prints store.
 - Responsive design
 - Cart functionality
 - Product showcase
-- Multilingual support 
+- Multilingual support
