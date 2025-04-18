@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { ensureAltText } from '@/lib/utils';
 
 export default function AboutUsPage() {
   const { t } = useLanguage();
@@ -14,7 +15,7 @@ export default function AboutUsPage() {
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <Image 
           src="/ads/REKLAMAAA1.png" 
-          alt="PreludaStvar Hero" 
+          alt={ensureAltText("PreludaStvar Hero", "About page hero image")} 
           fill 
           className="object-cover"
           priority
@@ -33,7 +34,7 @@ export default function AboutUsPage() {
           <div className="mb-10 flex justify-center">
             <Image 
               src="/logos/prepre.png" 
-              alt="PreludaStvar Logo" 
+              alt={ensureAltText("PreludaStvar Logo", "Company logo")} 
               width={250}
               height={250}
               className="object-contain"

@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/contexts/CartContext';
+import { ensureAltText } from '@/lib/utils';
 
 const CartDrawer = () => {
   const {
@@ -99,7 +100,7 @@ const CartDrawer = () => {
                         <div className="flex-shrink-0 w-24 h-24 overflow-hidden rounded-md border border-gray-200">
                           <Image
                             src={item.image}
-                            alt={item.name}
+                            alt={ensureAltText(item.name, "Product in cart")}
                             width={96}
                             height={96}
                             className="w-full h-full object-cover"

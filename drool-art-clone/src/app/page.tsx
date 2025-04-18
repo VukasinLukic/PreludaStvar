@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Faq from '@/components/Faq';
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ensureAltText } from '@/lib/utils';
 
 // ProductCard component
 const ProductCard = ({ product }: { product: any }) => {
@@ -15,7 +16,7 @@ const ProductCard = ({ product }: { product: any }) => {
         <Link href={product.href}>
           <Image
             src={product.image}
-            alt={product.name}
+            alt={ensureAltText(product.name, "Product image")}
             width={300}
             height={400}
             className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
@@ -44,7 +45,7 @@ export default function Home() {
           <div className="w-full h-full opacity-70 bg-gradient-to-b from-black to-transparent absolute top-0 left-0 z-10" />
           <Image
             src="/ads/REKLAMA1.png"
-            alt="Banner background"
+            alt={ensureAltText("Banner background", "PreludaStvar hero banner")}
             fill
             className="object-cover object-center w-full h-full"
             priority
@@ -55,7 +56,7 @@ export default function Home() {
           <div className="w-[80%] md:w-[60%] lg:w-[30%] relative aspect-square">
             <Image
               src="/logos/prepre.png"
-              alt="PreludaStvar Logo"
+              alt={ensureAltText("PreludaStvar Logo", "PreludaStvar brand logo")}
               fill
               className="object-contain opacity-90"
               priority

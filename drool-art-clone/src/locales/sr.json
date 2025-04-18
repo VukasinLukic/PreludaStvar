@@ -29,7 +29,38 @@
     "blackFrame": "Crni ram",
     "whiteFrame": "Beli ram",
     "quantity": "Količina",
-    "reviews": "recenzija"
+    "reviews": "recenzija",
+    "addedToCart": "Proizvod dodat u korpu!",
+    "defaultDescription": "Ovaj poster je inspirisan stihovima koji su obeležili jednu generaciju. Sa jasnom porukom i minimalističkim dizajnom, ovaj komad će se savršeno uklopiti u svaki prostor i doneti dašak autentičnosti i emocije.",
+    "printQuality": "Štampano na visokokvalitetnom papiru koji osigurava dugotrajnost i očuvanje boja.",
+    "finishes": {
+      "noFrame": {
+        "name": "Bez rama",
+        "description": "Samo print, bez rama"
+      },
+      "blackFrame": {
+        "name": "Crni ram",
+        "description": "Print u elegantnom crnom ramu"
+      },
+      "whiteFrame": {
+        "name": "Beli ram",
+        "description": "Print u elegantnom belom ramu"
+      }
+    },
+    "sizes": {
+      "small": {
+        "name": "Mali",
+        "description": "35x50 cm - Savršeno za male prostore"
+      },
+      "medium": {
+        "name": "Srednji",
+        "description": "50x70 cm - Idealno za većinu zidova"
+      },
+      "large": {
+        "name": "Veliki",
+        "description": "70x100 cm - Upečatljiv element za velike zidove"
+      }
+    }
   },
   "footer": {
     "shop": "Shop",
@@ -251,5 +282,72 @@
     "priceHighToLow": "Cena: od najviše do najniže",
     "priceLowToHigh": "Cena: od najniže do najviše",
     "newest": "Najnovije prvo"
+  },
+  "products": {
+    "apsolutnotvoj": {
+      "name": "Apsolutno Tvoj",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Apsolutno Tvoj' sa minimalističkim dizajnom koji savršeno prenosi emociju pesme."
+    },
+    "bangbang": {
+      "name": "Bang Bang",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Bang Bang' koji će uneti svežinu i energiju u svaki prostor."
+    },
+    "bass": {
+      "name": "Bass",
+      "artist": "Preludastvar",
+      "description": "Minimalistički dizajn inspirisan muzičkim ritmom i melodijom. Savršen za ljubitelje muzike."
+    },
+    "casino": {
+      "name": "Casino",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Casino' koji će uneti dozu elegancije i uzbuđenja u vaš prostor."
+    },
+    "elenablakablaka": {
+      "name": "Elena Blaka Blaka",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan popularnom pesmom, sa upečatljivim grafičkim dizajnom koji prenosi energiju muzike."
+    },
+    "grshemiach": {
+      "name": "Grshemiach",
+      "artist": "Preludastvar",
+      "description": "Jedinstveni dizajn koji kombinuje muzičke elemente sa savremenom estetikom."
+    },
+    "idepetak": {
+      "name": "Ide Petak",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Ide Petak' koji savršeno prenosi osećaj iščekivanja vikenda."
+    },
+    "jecapack": {
+      "name": "Jeca Pack",
+      "artist": "Preludastvar",
+      "description": "Specijalni paket postera inspirisanih pesmama koje nose snažnu emociju i priču."
+    },
+    "lajukuje": {
+      "name": "Laju Kuje",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Laju Kuje' sa upečatljivim dizajnom koji će privući pažnju."
+    },
+    "mkmz": {
+      "name": "MKMZ",
+      "artist": "Preludastvar",
+      "description": "Minimalistički poster sa jakom vizuelnom porukom inspirisan modernom muzikom."
+    },
+    "oprostajna": {
+      "name": "Oproštajna",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Oproštajna' koji na elegantan način prenosi emotivnu poruku pesme."
+    },
+    "vladoandjele": {
+      "name": "Vlado Anđele",
+      "artist": "Preludastvar",
+      "description": "Poster sa dizajnom koji prenosi dubinu i emociju pesme 'Vlado Anđele'."
+    },
+    "zovime": {
+      "name": "Zovi Me",
+      "artist": "Preludastvar",
+      "description": "Poster inspirisan pesmom 'Zovi Me' koji će uneti dozu nostalgije u vaš dom."
+    }
   }
 } 

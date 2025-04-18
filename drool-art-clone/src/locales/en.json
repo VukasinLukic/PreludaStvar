@@ -29,7 +29,38 @@
     "blackFrame": "Black frame",
     "whiteFrame": "White frame",
     "quantity": "Quantity",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "addedToCart": "Product added to cart!",
+    "defaultDescription": "This poster is inspired by lyrics that defined a generation. With a clear message and minimalist design, this piece will fit perfectly into any space and bring a touch of authenticity and emotion.",
+    "printQuality": "Printed on high-quality paper that ensures longevity and color preservation.",
+    "finishes": {
+      "noFrame": {
+        "name": "No frame",
+        "description": "Just the print, without a frame"
+      },
+      "blackFrame": {
+        "name": "Black frame",
+        "description": "Print in an elegant black frame"
+      },
+      "whiteFrame": {
+        "name": "White frame",
+        "description": "Print in an elegant white frame"
+      }
+    },
+    "sizes": {
+      "small": {
+        "name": "Small",
+        "description": "35x50 cm - Perfect for small spaces"
+      },
+      "medium": {
+        "name": "Medium",
+        "description": "50x70 cm - Ideal for most walls"
+      },
+      "large": {
+        "name": "Large",
+        "description": "70x100 cm - Statement piece for large walls"
+      }
+    }
   },
   "footer": {
     "shop": "Shop",
@@ -251,5 +282,72 @@
     "priceHighToLow": "Price: high to low",
     "priceLowToHigh": "Price: low to high",
     "newest": "Newest first"
+  },
+  "products": {
+    "apsolutnotvoj": {
+      "name": "Apsolutno Tvoj",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Apsolutno Tvoj' with minimalist design that perfectly conveys the emotion of the song."
+    },
+    "bangbang": {
+      "name": "Bang Bang",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Bang Bang' that will bring freshness and energy to any space."
+    },
+    "bass": {
+      "name": "Bass",
+      "artist": "Preludastvar",
+      "description": "Minimalist design inspired by musical rhythm and melody. Perfect for music lovers."
+    },
+    "casino": {
+      "name": "Casino",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Casino' that will bring a dose of elegance and excitement to your space."
+    },
+    "elenablakablaka": {
+      "name": "Elena Blaka Blaka",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by a popular song, with striking graphic design that conveys the energy of the music."
+    },
+    "grshemiach": {
+      "name": "Grshemiach",
+      "artist": "Preludastvar",
+      "description": "Unique design that combines musical elements with contemporary aesthetics."
+    },
+    "idepetak": {
+      "name": "Ide Petak",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Ide Petak' that perfectly conveys the feeling of anticipation for the weekend."
+    },
+    "jecapack": {
+      "name": "Jeca Pack",
+      "artist": "Preludastvar",
+      "description": "Special pack of posters inspired by songs that carry strong emotion and story."
+    },
+    "lajukuje": {
+      "name": "Laju Kuje",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Laju Kuje' with a striking design that will attract attention."
+    },
+    "mkmz": {
+      "name": "MKMZ",
+      "artist": "Preludastvar",
+      "description": "Minimalist poster with a strong visual message inspired by modern music."
+    },
+    "oprostajna": {
+      "name": "Oproštajna",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Oproštajna' that elegantly conveys the emotional message of the song."
+    },
+    "vladoandjele": {
+      "name": "Vlado Anđele",
+      "artist": "Preludastvar",
+      "description": "Poster with a design that conveys the depth and emotion of the song 'Vlado Anđele'."
+    },
+    "zovime": {
+      "name": "Zovi Me",
+      "artist": "Preludastvar",
+      "description": "Poster inspired by the song 'Zovi Me' that will bring a dose of nostalgia to your home."
+    }
   }
 } 

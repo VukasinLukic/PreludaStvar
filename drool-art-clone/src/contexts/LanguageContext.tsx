@@ -1,85 +1,98 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
 
-// Import language files - these will be imported dynamically in the browser
-import srTranslations from '@/locales/sr.json';
+// Import translations
 import enTranslations from '@/locales/en.json';
+import srTranslations from '@/locales/sr.json';
 
-// Fix useState null error by ensuring proper React behavior in server components
-if (typeof React.useState !== 'function') {
-  throw new Error('LanguageContext must be used within a ClientProvider component');
+// Available languages
+export type Language = 'en' | 'sr';
+export const DEFAULT_LANGUAGE: Language = 'sr';
+
+// Initialize i18next
+if (!i18n.isInitialized) {
+  i18n
+    .use(initReactI18next)
+    .init({
+      resources: {
+        en: { translation: enTranslations },
+        sr: { translation: srTranslations }
+      },
+      lng: DEFAULT_LANGUAGE,
+      fallbackLng: 'en',
+      interpolation: {
+        escapeValue: false
+      },
+      react: {
+        useSuspense: false
+      }
+    });
 }
 
-type Language = 'sr' | 'en';
-type TranslationKey = string;
-
-const translations = {
-  sr: srTranslations,
-  en: enTranslations
-};
-
+// Context type definition
 interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
-  t: (key: TranslationKey) => string;
+  t: (key: string, options?: any) => string;
 }
 
-const defaultContext: LanguageContextType = {
-  language: 'sr',
+const LanguageContext = createContext<LanguageContextType>({
+  language: DEFAULT_LANGUAGE,
   setLanguage: () => {},
-  t: () => '',
-};
+  t: (key) => key,
+});
 
-const LanguageContext = createContext<LanguageContextType>(defaultContext);
+// Custom hook to use the language context
+export const useLanguage = () => useContext(LanguageContext);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguage] = useState<Language>('sr');
-  
-  // Save language preference to localStorage
-  useEffect(() => {
-    // Try to get the language preference from localStorage
-    const storedLanguage = localStorage.getItem('language') as Language | null;
-    if (storedLanguage && (storedLanguage === 'sr' || storedLanguage === 'en')) {
-      setLanguage(storedLanguage);
+// Provider component
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  // Get initial language from localStorage if available, otherwise use default
+  const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined') {
+      const savedLanguage = localStorage.getItem('language') as Language;
+      return savedLanguage || DEFAULT_LANGUAGE;
+    }
+    return DEFAULT_LANGUAGE;
+  });
+
+  // Set language handler that updates both state and i18n
+  const setLanguage = useCallback((lang: Language) => {
+    setLanguageState(lang);
+    i18n.changeLanguage(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('language', lang);
     }
   }, []);
 
-  // Save language preference to localStorage when it changes
+  // Initialize i18n language
   useEffect(() => {
-    localStorage.setItem('language', language);
+    if (i18n.language !== language) {
+      i18n.changeLanguage(language);
+    }
   }, [language]);
 
-  // Translation function - handles nested keys with dot notation
-  const t = (key: TranslationKey): string => {
-    // Safety check for undefined or null keys
-    if (key === undefined || key === null) {
-      console.warn('Translation key is undefined or null');
-      return '';
-    }
-    
-    const keys = key.split('.');
-    let result: any = translations[language];
-    
-    for (const k of keys) {
-      if (result && result[k] !== undefined) {
-        result = result[k];
-      } else {
-        console.warn(`Translation missing for key: ${key} in ${language}`);
-        return key;
-      }
-    }
-    
-    return typeof result === 'string' ? result : key;
+  // Translation function
+  const t = useCallback((key: string, options?: any): string => {
+    const translation = i18n.t(key, options);
+    // Ensure we always return a string
+    return typeof translation === 'string' ? translation : key;
+  }, []);
+
+  const contextValue: LanguageContextType = {
+    language,
+    setLanguage,
+    t
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={contextValue}>
       {children}
     </LanguageContext.Provider>
   );
-}
+};
 
-export function useLanguage() {
-  return useContext(LanguageContext);
-} 
+export default LanguageProvider; 

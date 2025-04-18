@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
 import Link from 'next/link';
 import Image from 'next/image';
+import { ensureAltText } from '@/lib/utils';
 
 export default function CartPage() {
   const { cartItems, removeFromCart, updateQuantity, cartTotal, clearCart } = useCart();
@@ -173,7 +174,7 @@ export default function CartPage() {
                           <div className="w-full md:w-24 h-32 md:h-24 relative mb-4 md:mb-0 flex-shrink-0">
                             <Image
                               src={item.image}
-                              alt={item.name}
+                              alt={ensureAltText(item.name, "Cart item")}
                               fill
                               className="object-cover rounded"
                             />

@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { ensureAltText } from '@/lib/utils';
 
 // Format filename to a more readable name
 const formatName = (filename: string) => {
@@ -88,7 +89,7 @@ const ProductCard = ({ product }: { product: Product }) => {
         </div>
         <Image
           src={product.image}
-          alt={product.name}
+          alt={ensureAltText(product.name, "Poster image")}
           width={600}
           height={800}
           className="product-image"

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { ensureAltText } from '@/lib/utils';
 
 export default function PrintsCollection() {
   return (
@@ -80,7 +81,7 @@ export default function PrintsCollection() {
                 <Link href={product.href}>
                   <Image
                     src={product.image}
-                    alt={product.name}
+                    alt={ensureAltText(product.name, `${product.artist} artwork`)}
                     width={300}
                     height={400}
                     className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
