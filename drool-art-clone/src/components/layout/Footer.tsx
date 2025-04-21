@@ -12,7 +12,7 @@ const Footer = () => {
       {/* Main footer content */}
       <div className="container mx-auto px-4 py-12 flex flex-col md:flex-row justify-between border-t border-gray-800 gap-8">
         <div className="mb-6 md:mb-0">
-          <Image src="/logos/logo1.png" alt="PreludaStvar" width={120} height={40} className="h-12 w-auto" />
+          <Image src="/assets/images/logos/logo1.png" alt="PreludaStvar" width={120} height={40} className="h-12 w-auto" />
           <p className="mt-4 text-gray-400 max-w-xs">
             {t('footer.newsletterText')}
           </p>

@@ -1,130 +1,75 @@
-'use client';
-
 import Image from 'next/image';
 import Link from 'next/link';
-import { useLanguage } from '@/contexts/LanguageContext';
+// import { useLanguage } from '@/contexts/LanguageContext'; // Removed client-side hook
 import { ensureAltText } from '@/lib/utils';
+import ProductCard from '@/components/products/ProductCard'; // Import reusable card
+import { firestoreAdmin } from '@/lib/firebaseAdmin'; // Import Firestore admin instance
 
-// Format filename to a more readable name
-const formatName = (filename: string) => {
-  // Convert to lowercase, except keep uppercase words
-  const name = filename
-    .replace(/([A-Z])/g, ' $1')
-    .replace(/([0-9])/g, ' $1')
-    .trim();
-    
-  // Capitalize first letter of each word
-  return name.split(' ').map(word => 
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
-  ).join(' ');
-};
+// TODO: Add i18n setup for server-side translations
+// For now, use hardcoded or simplified text
 
-interface Product {
-  id: string;
-  name: string;
-  artist: string;
-  price: string;
-  image: string;
-  href: string;
+// Define FirestoreProduct type based on Firestore data structure
+interface FirestoreProduct {
+  id: string; // Firestore document ID (slug)
+  name: { sr: string; en: string };
+  artist: { sr: string; en: string };
+  price: number;
+  imageURL: string;
+  isNew?: boolean; // Optional metadata fields
+  isOnSale?: boolean;
+  saleMultiplier?: number;
 }
 
-// Generate all posters data from available images
-const generateAllPosters = () => {
-  const productImages = [
-    'APSOLUTNOTVOJ', 'bangbang', 'bass', 'bezkoda', 'bicu1', 'bik', 
-    'CASINO', 'daraskinemsnjom', 'ELENABLAKABLAKA', 
-    'GRSHEMIACH', 'IDEPETAK', 'januar', 'jaocu', 'kaonik',
-    'kleopatra', 'kozapamti', 'krimirad', 'LAJUKUJE', 'MKMZ', 
-    'mojbeograd', 'nevaljala', 'nikad', 'OPROSTAJNA', 'puma1', 
-    'sat', 'smztvj', 'svesto', 'VLADOANDJELE', 'zovime'
-  ];
-  
-  // Filter out items with "PACK" in their names
-  const filteredImages = productImages.filter(img => !img.includes('PACK') && !img.toLowerCase().includes('pack'));
-  
-  return filteredImages.map((originalImage) => {
-    const slug = originalImage.toLowerCase();
-    const name = formatName(originalImage);
-    
-    return {
-      id: slug,  // Use slug as ID for consistency
-      name: name, // Just use the name without wrapping it
-      artist: "Preluda Stvar",
-      price: "900",
-      image: `/product-photos/${originalImage}.png`,
-      href: `/products/${slug}`
-    };
-  });
-};
+// Implement Firestore fetching logic
+async function getProductsFromFirestore(): Promise<FirestoreProduct[]> {
+  try {
+    const productsCollection = firestoreAdmin.collection('products');
+    // Fetch only active products (if isActive field exists)
+    // const snapshot = await productsCollection.where('isActive', '==', true).get();
+    const snapshot = await productsCollection.get(); // Fetch all for now
 
-// Generate posters data
-const allPosters = generateAllPosters();
+    if (snapshot.empty) {
+      console.log('No products found in Firestore.');
+      return [];
+    }
 
-const ProductCard = ({ product }: { product: Product }) => {
-  const { t } = useLanguage();
-  
-  // Determine if product should show badges
-  const isNew = product.id === 'bass' || product.id === 'bezkoda' || product.id === 'bicu1';
-  const isOnSale = product.id === 'casino' || product.id === 'daraskinemsnjom' || product.id === 'elenablakablaka';
-  
-  // Calculate discounted price if on sale
-  const originalPrice = parseInt(product.price);
-  const discountedPrice = isOnSale ? originalPrice / 2 : originalPrice;
-  
-  return (
-    <Link href={`/products/${product.id}`} className="product-card">
-      <div className="product-card-image relative">
-        {/* Badges */}
-        <div className="absolute top-0 left-0 z-10">
-          {isNew && (
-            <div className="bg-black text-white text-xs font-bold px-2 py-1">
-              NEW
-            </div>
-          )}
-          {isOnSale && (
-            <div className="bg-black text-white text-xs font-bold px-2 py-1">
-              50% OFF
-            </div>
-          )}
-        </div>
-        <Image
-          src={product.image}
-          alt={ensureAltText(product.name, "Poster image")}
-          width={600}
-          height={800}
-          className="product-image"
-          priority={true}
-        />
-      </div>
-      <div className="product-card-content">
-        <h3 className="product-card-title">{product.name}</h3>
-        <p className="text-gray-600">{t('product.inspiredBy')}</p>
-        <p className="text-gray-600">{product.artist}</p>
-        <div className="mt-2">
-          {isOnSale ? (
-            <div className="flex items-center gap-2">
-              <span className="text-red-600 font-semibold text-lg">{discountedPrice} RSD</span>
-              <span className="text-gray-500 line-through text-sm">{originalPrice} RSD</span>
-            </div>
-          ) : (
-            <span className="font-semibold text-lg">{originalPrice} RSD</span>
-          )}
-        </div>
-      </div>
-    </Link>
-  );
-};
+    const products: FirestoreProduct[] = snapshot.docs.map(doc => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        name: data.name || { sr: 'N/A', en: 'N/A' }, // Provide defaults
+        artist: data.artist || { sr: 'N/A', en: 'N/A' },
+        price: typeof data.price === 'number' ? data.price : 0,
+        imageURL: data.imageURL || '', // Use the Supabase URL
+        isNew: data.isNew || false,
+        isOnSale: data.isOnSale || false,
+        saleMultiplier: data.saleMultiplier || 1,
+        // Add other fields as needed
+      };
+    });
 
-export default function PostersPage() {
-  const { t } = useLanguage();
-  
+    return products;
+
+  } catch (error) {
+    console.error('Error fetching products from Firestore:', error);
+    // In a real app, you might want to handle this error more gracefully
+    return []; // Return empty array on error
+  }
+}
+
+// This page is now a Server Component
+export default async function PostersPage() {
+  // const { t } = useLanguage(); // Removed client-side hook
+
+  const products = await getProductsFromFirestore();
+
   return (
     <main className="min-h-screen pt-32 sm:pt-32 pb-8 sm:pb-16 bg-white font-sans">
-      {/* Page Title and Search Bar */}
+      {/* Page Title */}
       <section className="py-4 sm:py-6 border-b border-gray-200">
         <div className="container-wide">
           <h1 className="font-sans-heading text-5xl sm:text-7xl md:text-8xl font-bold text-center mb-6 sm:mb-10 tracking-tight">
-            {t('postersPage.allPosters')}
+            ALL POSTERS
           </h1>
         </div>
       </section>
@@ -132,11 +77,30 @@ export default function PostersPage() {
       {/* Products Gallery */}
       <section className="py-6 sm:py-12">
         <div className="container-wide">
-          <div className="product-grid">
-            {allPosters.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
+          {products.length === 0 ? (
+            <p className="text-center text-gray-500">No products found.</p>
+          ) : (
+            <div className="product-grid">
+              {products.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={{
+                    id: product.id,
+                    // TODO: Get language preference server-side
+                    name: product.name.sr, // Default to Serbian
+                    artist: product.artist.sr,
+                    price: product.price,
+                    image: product.imageURL,
+                    href: `/products/${product.id}`,
+                    // Pass metadata for badges
+                    isNew: product.isNew,
+                    isOnSale: product.isOnSale,
+                    saleMultiplier: product.saleMultiplier,
+                  }}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
@@ -144,10 +108,10 @@ export default function PostersPage() {
       <section className="py-8 sm:py-16 bg-black text-white">
         <div className="container-wide text-center px-4">
           <h2 className="font-sans-heading text-2xl sm:text-3xl md:text-5xl mb-4 sm:mb-6">
-            {t('postersPage.findInspiration')}
+            Find Inspiration
           </h2>
           <p className="text-base sm:text-lg mb-6 sm:mb-8 max-w-3xl mx-auto">
-            {t('postersPage.findInspirationText')}
+            See how our posters fit...
           </p>
           <a
             href="https://tiktok.com/@preludastvar"
@@ -158,7 +122,7 @@ export default function PostersPage() {
             <svg className="w-5 h-5 sm:w-6 sm:h-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
               <path d="M19.321 5.562a5.124 5.124 0 0 1-3.035-2.535c-.144-.315-.246-.651-.304-1.002h-3.039v13.943c0 1.349-1.126 2.439-2.517 2.439a2.518 2.518 0 0 1-2.517-2.497c0-1.38 1.126-2.5 2.517-2.5.242 0 .477.035.7.101v-3.16a6.04 6.04 0 0 0-.7-.044c-3.091 0-5.604 2.47-5.604 5.504 0 3.033 2.513 5.503 5.604 5.503 3.091 0 5.603-2.47 5.603-5.503V8.969c1.025.846 2.33 1.357 3.755 1.357V7.118c-.667 0-1.302-.152-1.865-.422a3.52 3.52 0 0 1-.598-.334V5.562z"/>
             </svg>
-            <span className="text-sm sm:text-base">{t('postersPage.followTikTok')}</span>
+            <span className="text-sm sm:text-base">Follow TikTok</span>
           </a>
         </div>
       </section>

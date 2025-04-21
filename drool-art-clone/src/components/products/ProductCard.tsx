@@ -2,19 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useLanguage } from "@/contexts/LanguageContext";
-import { Product } from "@/data/products";
 
 export interface ProductCardProps {
   product: {
     id: string | number;
     name: string;
     artist?: string;
-    price: string | number;
+    price: number;
     image: string;
     href: string;
-    nameKey?: string;
-    artistKey?: string;
+    isNew?: boolean;
+    isOnSale?: boolean;
+    saleMultiplier?: number;
   };
   showArtist?: boolean;
   size?: 'default' | 'small' | 'large';
@@ -27,12 +26,6 @@ export function ProductCard({
   size = 'default',
   className = '',
 }: ProductCardProps) {
-  const { t } = useLanguage();
-  
-  // Handle product with translation keys or direct values
-  const displayName = product.nameKey ? t(product.nameKey) : product.name;
-  const displayArtist = product.artistKey ? t(product.artistKey) : product.artist;
-  
   // Calculate size-specific styles
   const getImageSizes = () => {
     switch(size) {
@@ -44,31 +37,53 @@ export function ProductCard({
   
   const imageSizes = getImageSizes();
   
+  // Calculate sale price
+  const isOnSale = product.isOnSale && product.saleMultiplier && product.saleMultiplier < 1;
+  const salePrice = isOnSale ? Math.round(product.price * (product.saleMultiplier as number)) : null;
+
   return (
-    <div className={`group ${className}`}>
+    <div className={`group relative ${className}`}>
       <div className="relative mb-3 overflow-hidden">
+        <div className="absolute top-2 left-2 z-10 flex flex-col space-y-1">
+          {product.isNew && (
+            <span className="bg-blue-500 text-white text-xs font-semibold px-2 py-0.5 rounded">
+              Novo
+            </span>
+          )}
+          {isOnSale && (
+            <span className="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded">
+              Akcija
+            </span>
+          )}
+        </div>
         <Link href={product.href}>
           <Image
-            src={product.image}
-            alt={displayName}
+            src={product.image || '/placeholder-image.png'}
+            alt={product.name}
             width={imageSizes.width}
             height={imageSizes.height}
             className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+            priority={true}
           />
         </Link>
       </div>
       <Link href={product.href}>
-        <h3 className="font-medium mb-1">{displayName}</h3>
+        <h3 className="font-medium mb-1 truncate">{product.name}</h3>
       </Link>
       {showArtist && (
         <p className="text-sm text-gray-600 mb-2">
-          {displayArtist ? displayArtist : t('product.inspiredBy')}
+          {product.artist ? product.artist : 'Inspired Design'}
         </p>
       )}
       <div className="mt-2">
-        <span className="font-medium">
-          {typeof product.price === 'number' ? `${product.price} RSD` : product.price}
-        </span>
+        {isOnSale && salePrice !== null ? (
+          <div className="flex items-baseline space-x-2">
+            <span className="font-medium text-red-600">{salePrice} RSD</span>
+            <span className="text-sm text-gray-500 line-through">{product.price} RSD</span>
+          </div>
+        ) : (
+          <span className="font-medium">{product.price} RSD</span>
+        )}
       </div>
     </div>
   );

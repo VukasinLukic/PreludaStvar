@@ -68,7 +68,7 @@ export default function Header() {
             className="relative z-10 transition-transform duration-300 hover:scale-105 -ml-4"
           >
             <Image 
-              src="/logos/preludastvar1.png" 
+              src="/assets/images/logos/preludastvar1.png" 
               alt="PreludaStvar" 
               width={160} 
               height={48}

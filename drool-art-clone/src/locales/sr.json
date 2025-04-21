@@ -34,15 +34,15 @@
     "defaultDescription": "Ovaj poster je inspirisan stihovima koji su obeležili jednu generaciju. Sa jasnom porukom i minimalističkim dizajnom, ovaj komad će se savršeno uklopiti u svaki prostor i doneti dašak autentičnosti i emocije.",
     "printQuality": "Štampano na visokokvalitetnom papiru koji osigurava dugotrajnost i očuvanje boja.",
     "finishes": {
-      "noFrame": {
+      "no-frame": {
         "name": "Bez rama",
         "description": "Samo print, bez rama"
       },
-      "blackFrame": {
+      "black-frame": {
         "name": "Crni ram",
         "description": "Print u elegantnom crnom ramu"
       },
-      "whiteFrame": {
+      "white-frame": {
         "name": "Beli ram",
         "description": "Print u elegantnom belom ramu"
       }
@@ -59,6 +59,14 @@
       "large": {
         "name": "Veliki",
         "description": "70x100 cm - Upečatljiv element za velike zidove"
+      },
+      "a4": {
+        "name": "A4",
+        "description": "Dimenzije 21x30 cm"
+      },
+      "a3": {
+        "name": "A3",
+        "description": "Dimenzije 30x40 cm"
       }
     }
   },
@@ -286,7 +294,7 @@
   "products": {
     "apsolutnotvoj": {
       "name": "Apsolutno Tvoj",
-      "artist": "Preludastvar",
+      "artist": "Mirza Selimović",
       "description": "Poster inspirisan pesmom 'Apsolutno Tvoj' sa minimalističkim dizajnom koji savršeno prenosi emociju pesme."
     },
     "bangbang": {
@@ -348,6 +356,11 @@
       "name": "Zovi Me",
       "artist": "Preludastvar",
       "description": "Poster inspirisan pesmom 'Zovi Me' koji će uneti dozu nostalgije u vaš dom."
+    },
+    "cecapack": {
+      "name": "Ceca Pack",
+      "artist": "Preluda Stvar",
+      "description": "Paket od tri postera inspirisanih najvećim hitovima Cece."
     }
   }
 } 

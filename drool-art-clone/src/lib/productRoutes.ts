@@ -111,7 +111,7 @@ export function getProductImageFilename(slug: string): string {
  */
 export function getProductImageUrl(slug: string): string {
   const filename = getProductImageFilename(slug);
-  return `/product-photos/${filename}.png`;
+  return `/assets/images/products/${filename}.png`;
 }
 
 /**

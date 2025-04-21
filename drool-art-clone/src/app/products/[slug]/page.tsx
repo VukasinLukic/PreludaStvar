@@ -21,13 +21,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   }
 
   // Get the normalized slug to ensure consistent product loading
-  const normalizedSlug = getProductSlug(params.slug);
-  console.log(`ProductPage: Processing slug: ${params.slug} → ${normalizedSlug}`);
+  // const normalizedSlug = getProductSlug(params.slug);
+  // console.log(`ProductPage: Processing slug: ${params.slug} → ${normalizedSlug}`);
 
   // Return the ProductClient component with the params
   return (
     <div>
-      <ProductClient params={{ slug: normalizedSlug }} />
+      {/* Pass the raw slug, let Client component handle normalization */}
+      <ProductClient params={{ slug: params.slug }} />
     </div>
   );
 }

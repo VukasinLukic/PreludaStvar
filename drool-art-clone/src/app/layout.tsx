@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "PreludaStvar - Posteri inspirisani muzikom",
   description: "PreludaStvar - Posteri inspirisani stihovima vaših omiljenih pesama",
   icons: {
-    icon: '/product-photos/bangbang.png',
+    icon: '/assets/images/products/bangbang.png',
   }
 };
 

@@ -8,7 +8,7 @@ if (typeof React.useState !== 'function') {
 }
 
 // Define types
-type CartItem = {
+export type CartItem = {
   id: number | string;
   name: string;
   artist: string;

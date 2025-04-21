@@ -21,7 +21,7 @@
     "sale": "Sale"
   },
   "product": {
-    "inspiredBy": "Poster inspired by song",
+    "inspiredBy": "Poster inspired by the song",
     "description": "Description",
     "size": "Size",
     "frame": "Frame",
@@ -34,16 +34,16 @@
     "defaultDescription": "This poster is inspired by lyrics that defined a generation. With a clear message and minimalist design, this piece will fit perfectly into any space and bring a touch of authenticity and emotion.",
     "printQuality": "Printed on high-quality paper that ensures longevity and color preservation.",
     "finishes": {
-      "noFrame": {
-        "name": "No frame",
-        "description": "Just the print, without a frame"
+      "no-frame": {
+        "name": "No Frame",
+        "description": "Print only, no frame included"
       },
-      "blackFrame": {
-        "name": "Black frame",
+      "black-frame": {
+        "name": "Black Frame",
         "description": "Print in an elegant black frame"
       },
-      "whiteFrame": {
-        "name": "White frame",
+      "white-frame": {
+        "name": "White Frame",
         "description": "Print in an elegant white frame"
       }
     },
@@ -59,6 +59,14 @@
       "large": {
         "name": "Large",
         "description": "70x100 cm - Statement piece for large walls"
+      },
+      "a4": {
+        "name": "A4",
+        "description": "Dimensions 21x30 cm"
+      },
+      "a3": {
+        "name": "A3",
+        "description": "Dimensions 30x40 cm"
       }
     }
   },
@@ -286,7 +294,7 @@
   "products": {
     "apsolutnotvoj": {
       "name": "Apsolutno Tvoj",
-      "artist": "Preludastvar",
+      "artist": "Mirza Selimović",
       "description": "Poster inspired by the song 'Apsolutno Tvoj' with minimalist design that perfectly conveys the emotion of the song."
     },
     "bangbang": {
@@ -347,7 +355,12 @@
     "zovime": {
       "name": "Zovi Me",
       "artist": "Preludastvar",
-      "description": "Poster inspired by the song 'Zovi Me' that will bring a dose of nostalgia to your home."
+      "description": "Poster inspired by the song 'Zovi Me' with a striking visual representation."
+    },
+    "cecapack": {
+      "name": "Ceca Pack",
+      "artist": "Preluda Stvar",
+      "description": "A pack of three posters inspired by Ceca's greatest hits."
     }
   }
 } 

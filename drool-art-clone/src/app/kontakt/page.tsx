@@ -29,10 +29,21 @@ export default function ContactPage() {
     setError('');
 
     try {
-      // Simulate form submission
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      console.log('Form submitted:', formData);
+      const response = await fetch('/api/send-contact-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('API Response:', result);
       setSubmitted(true);
       setFormData({
         name: '',
@@ -40,9 +51,12 @@ export default function ContactPage() {
         subject: '',
         message: ''
       });
-    } catch (err) {
-      setError(t('contactPage.error'));
+    } catch (err: any) {
       console.error('Form submission error:', err);
+      const errorMessage = err.message?.includes('HTTP error!') 
+        ? t('contactPage.error') 
+        : err.message || t('contactPage.error');
+      setError(errorMessage);
     } finally {
       setSubmitting(false);
     }

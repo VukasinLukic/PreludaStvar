@@ -14,7 +14,7 @@ export default function AboutUsPage() {
       <section className="relative h-[50vh] md:h-[60vh] w-full">
         <div className="absolute inset-0 bg-black/60 z-10"></div>
         <Image 
-          src="/ads/REKLAMAAA1.png" 
+          src="/assets/images/ads/REKLAMAAA1.png" 
           alt={ensureAltText("PreludaStvar Hero", "About page hero image")} 
           fill 
           className="object-cover"
@@ -33,7 +33,7 @@ export default function AboutUsPage() {
         <div className="max-w-5xl mx-auto text-center">
           <div className="mb-10 flex justify-center">
             <Image 
-              src="/logos/prepre.png" 
+              src="/assets/images/logos/prepre.png" 
               alt={ensureAltText("PreludaStvar Logo", "Company logo")} 
               width={250}
               height={250}
